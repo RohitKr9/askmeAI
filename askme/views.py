@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .utilites import pptparser, pdfparser
+from .utilites import pptparser, pdfparser, docxparser
 
 # Create your views here.
 def home(request):
@@ -16,6 +16,9 @@ def fileupload(request):
         
         elif myfile.content_type == 'application/pdf':
             pdfparser.getText(myfile_binary)
+
+        elif myfile.content_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+            docxparser.getText(myfile)
 
         return HttpResponse("Everything good and uploaded")
     return HttpResponse("something is wrong")
